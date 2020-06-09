@@ -1,0 +1,29 @@
+.plusCircle {
+  width: 34px;
+  height: 34px;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  z-index: 1000;
+  cursor: pointer;
+  border-radius: 100%;
+}
+
+.plusCircle span {
+  font-size: 34px;
+}
+
+.plusCircle:hover {
+  box-shadow: 0 0 2px 2px #177ddcb2;
+  animation: rotate 1s ease forwards;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(1turn) scale(1.2);
+  }
+}
