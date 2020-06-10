@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "antd";
 
-import { Header, InputBox, PlusCircle } from "../components";
+import { Header, InputBox, PlusCircle } from "@/components";
 
 export default function Layout() {
   return (
