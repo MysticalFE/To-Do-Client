@@ -1,28 +1,18 @@
 import { ADD_TO_DO } from "../actionTypes";
 
-interface Item {
+export interface Item {
   id: number;
   value: string;
 }
 
 export interface addToDo {
   type: string;
-  toggle?: boolean;
-  value: "";
+  value: string;
 }
 
-const initialState = {
-  toggle: false,
-  list: [
-    {
-      id: 0,
-      value: "",
-    },
-  ],
-};
+const initialState: Array<Item> = [];
 
 export default (state = initialState, action: addToDo) => {
-  console.log(action);
   const { type } = action;
   switch (type) {
     case ADD_TO_DO:
@@ -31,10 +21,7 @@ export default (state = initialState, action: addToDo) => {
         id: ++id,
         value: action.value,
       };
-      return {
-        toggle: action.toggle,
-        list: [...state.list, item],
-      };
+      return [...state, item];
     default:
       return state;
   }

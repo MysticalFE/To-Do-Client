@@ -1,22 +1,23 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Modal, Input } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { AppStoreType } from "@/store/reduxers";
-import { ADD_TO_DO } from "@/store/actionTypes";
+import { ToggleType } from "@/store/reduxers";
+import { ADD_TO_DO, TOGGLE_MODAL } from "@/store/actionTypes";
 interface ToDos {
   toggle: boolean;
 }
 
 function AddItem() {
   const [value, setValue] = useState("");
-  const { toggle } = useSelector((state: AppStoreType) => state.todos);
+  const toggle = useSelector((state: ToggleType) => state.toggle);
+  console.log(toggle);
   const dispatch = useDispatch();
 
   const confirm = () => {
-    value && dispatch({ type: ADD_TO_DO, toggle: false, value });
+    value && dispatch({ type: ADD_TO_DO, value }) && cancel();
   };
   const cancel = () => {
-    dispatch({ type: ADD_TO_DO, toggle: false });
+    dispatch({ type: TOGGLE_MODAL, toggle: false });
   };
   return (
     <Modal
