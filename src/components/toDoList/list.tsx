@@ -7,8 +7,8 @@ function List() {
   console.log(list);
   return (
     <ul>
-      {list.map((item) => (
-        <li key={item.id}>{item.value}</li>
+      {list.map((item, index) => (
+        <li key={index}>{item.value}</li>
       ))}
     </ul>
   );

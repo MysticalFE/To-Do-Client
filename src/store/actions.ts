@@ -1,8 +1,13 @@
-import { ADD_TO_DO } from "./actionTypes";
+import { ADD_TO_DO, TOGGLE_MODAL } from "./actionTypes";
 
-export const addToDos = (data: boolean) => {
+export const addToDos = (value: string) => {
   return {
-    data,
+    value,
     type: ADD_TO_DO,
   };
 };
+
+export const toggle = (toggle: boolean) => ({
+  toggle,
+  type: TOGGLE_MODAL,
+});

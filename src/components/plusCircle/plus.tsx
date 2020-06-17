@@ -1,16 +1,13 @@
 import React from "react";
 import { PlusCircleFilled } from "@ant-design/icons";
-import "./plus.css";
-import { TOGGLE_MODAL } from "@/store/actionTypes";
 import { useDispatch } from "react-redux";
+import "./plus.css";
+import { toggle } from "@/store/actions";
 
 function PlusCircle() {
   const dispatch = useDispatch();
   return (
-    <section
-      className="plusCircle"
-      onClick={() => dispatch({ type: TOGGLE_MODAL, toggle: true })}
-    >
+    <section className="plusCircle" onClick={() => dispatch(toggle(true))}>
       <PlusCircleFilled />
     </section>
   );

@@ -3,6 +3,7 @@ import { ADD_TO_DO } from "../actionTypes";
 export interface Item {
   id: number;
   value: string;
+  completed: boolean;
 }
 
 export interface addToDo {
@@ -20,6 +21,7 @@ export default (state = initialState, action: addToDo) => {
       let item = {
         id: ++id,
         value: action.value,
+        completed: false,
       };
       return [...state, item];
     default:
