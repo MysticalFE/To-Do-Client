@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Modal, Input } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { ToggleType } from "@/store/reduxers";
