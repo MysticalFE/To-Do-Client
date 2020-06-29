@@ -4,7 +4,7 @@ module.exports = function getRepoInfo(cwd = process.cwd()) {
   try {
     const execConfig = { encoding: "utf8", cwd };
     const detailString = execSync(
-      `git show --format='%H%n%h%n%cn%n%cI%n%an%n%aI%n%s' -q --encoding=UTF-8`,
+      `git show --format='%H%n%h%n%cn%n%cI%n%an%n%aI%n%s' -p --encoding=UTF-8`,
       execConfig
     );
     console.log(detailString);
