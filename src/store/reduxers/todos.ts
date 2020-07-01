@@ -1,16 +1,5 @@
 import { ADD_TO_DO, COMPLETED_TO_DO } from "../actionTypes";
-
-export interface Item {
-  id: number;
-  value: string;
-  completed: boolean;
-}
-
-export interface addToDo {
-  type: string;
-  value: string;
-  id?: number;
-}
+import { Item, addToDo } from "@/typings";
 
 const initialState: Array<Item> = [];
 

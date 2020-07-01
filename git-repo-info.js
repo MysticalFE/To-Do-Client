@@ -7,7 +7,6 @@ module.exports = function getRepoInfo(cwd = process.cwd()) {
       `git show --format='%H%n%h%n%cn%n%cI%n%an%n%aI%n%s' -p --encoding=UTF-8`,
       execConfig
     );
-    console.log(detailString);
     const [
       sha,
       abbreviatedSha,
