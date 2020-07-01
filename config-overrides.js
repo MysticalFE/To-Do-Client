@@ -21,12 +21,14 @@ const devServerConfig = () => (config) => {
   return {
     ...config,
     proxy: {
-      "/api": {
-        target: "https://jiaxiangkai.cn",
+      "/api/todo": {
+        target: "https://jiaxiangkai.cn/api",
         changeOrigin: true,
         logLevel: "debug",
         secure: false,
-        pathRewrite: { "^/api": "" },
+        pathRewrite: {
+          "^/api/todo": "/todo",
+        },
         onProxyRes(proxyRes) {
           proxyRes.headers["Cache-Control"] =
             "no-cache, no-store, must-revalidate";
@@ -57,7 +59,7 @@ module.exports = {
     ),
     // 配置路径别名
     addWebpackAlias({
-      "@/": path.resolve(__dirname, "src/"),
+      "@": path.resolve(__dirname, "src/"),
     }),
     // antd 按需加载
     fixBabelImports("import", {

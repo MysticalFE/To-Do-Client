@@ -1,4 +1,4 @@
-import { fetchParam } from "../typings";
+import { fetchParam, Map } from "../typings";
 
 const methods = ["GET", "POST", "PUT", "DELETE", "PATCH"];
 const contentTypes = {
@@ -13,11 +13,11 @@ function dealResponse(response: Response) {
   const contentType = response.headers.get("content-type");
   let resType = "json"; //返回的数据流格式
   for (let key in contentTypes) {
-    if (contentType.indexOf(key) > -1) {
-      resType = contentTypes[key];
+    if ((contentType as string).indexOf(key) > -1) {
+      resType = (contentTypes as Map)[key];
     }
   }
-  return response[resType]().then((data: unknown) => {
+  return (response as Map)[resType]().then((data: unknown) => {
     if (response.ok) {
       return data;
     } else {
@@ -28,9 +28,9 @@ function dealResponse(response: Response) {
 
 //timeout处理
 function promiseTimeout(time: number, callback: Promise<unknown>) {
-  let timer = null;
+  let timer: number = 0;
   let timeout_promise = new Promise((resolve, reject) => {
-    timer = setTimeout(() => {
+    timer = window.setTimeout(() => {
       reject("请求超时");
     }, time);
   });
@@ -44,23 +44,31 @@ function promiseTimeout(time: number, callback: Promise<unknown>) {
  * timeout不是请求连接超时的含义，它表示请求的response时间，包括请求的连接、服务器处理及服务器响应回来的时间；
  * fetch的timeout即使超时发生了，本次请求也不会被abort丢弃掉，仍然会发送到服务器端，只是本次请求的响应内容被丢弃而已s；
  */
-function Fetch(url: string, opt: fetchParam): Promise<unknown> {
+function Fetch(url: string, opt: fetchParam = {}): Promise<[]> {
+  const requestHeaders: HeadersInit = new Headers();
   if (!opt) opt = {};
   if (!opt.timeout) opt.timeout = 10000;
-  if (url && typeof url !== "string") return;
-  if (opt.method && !methods.some((m) => m === opt.method.toUpperCase()))
-    return;
+  if (url && typeof url !== "string")
+    return Promise.reject("type of url must be string");
+  if (
+    opt.method &&
+    !methods.some((m) => m === (opt.method as string).toUpperCase())
+  )
+    return Promise.reject("method is not legal");
   if (opt.data) {
     //post 设置headers,body
-    if (opt.method.toUpperCase() === "POST") {
+    if ((opt.method as string).toUpperCase() === "POST") {
       if (opt.data instanceof FormData) {
-        opt.headers["Content-Type"] = "multipart/form-data;";
+        requestHeaders.set("Content-Type", "multipart/form-data;");
       } else if (opt.data instanceof Object) {
         opt.body = JSON.stringify(opt.data);
       } else {
-        opt.headers["Content-Type"] =
-          "application:/x-www-form-urlencoded:charset=UTF-8";
+        requestHeaders.set(
+          "Content-Type",
+          "application:/x-www-form-urlencoded:charset=UTF-8"
+        );
       }
+      opt.headers = requestHeaders;
     } else {
       const searchParam = url.indexOf("?") > -1 ? "" : "?";
       url +=
@@ -86,15 +94,14 @@ function Fetch(url: string, opt: fetchParam): Promise<unknown> {
     const fetch_promise = fetch(url, reqParams)
       .then(dealResponse)
       .then((data) => {
-        if (data.errorcode === 0) {
+        if (data.code) {
           resolve(data.data);
-          // console.log(data.data)
         } else {
           reject("请求出错");
         }
       });
     //设置请求超时
-    promiseTimeout(opt.timeout, fetch_promise);
+    promiseTimeout(opt.timeout as number, fetch_promise);
   });
 }
 
