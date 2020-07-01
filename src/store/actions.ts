@@ -7,32 +7,21 @@ import {
 import { Item } from "@/typings";
 import { $todo } from "@/api";
 
-let nextTodoId = 0;
-
 export const getList = (list: Item[]) => ({
   type: FETCH_TODO_LIST,
   data: list,
 });
 
-export function fetchList() {
-  return (dispatch: any) => {
-    return $todo.getList().then((data) => {
-      dispatch(getList(data));
-      console.log(data);
-      return data;
-    });
-  };
-}
 export const addToDos = (value: string) => {
   return {
     value,
-    id: nextTodoId++,
     type: ADD_TO_DO,
   };
 };
 
-export const toggle = (toggle: boolean) => ({
+export const toggle = (toggle: boolean, fetchAddSuccess: boolean = false) => ({
   toggle,
+  fetchAddSuccess,
   type: TOGGLE_MODAL,
 });
 
@@ -40,3 +29,19 @@ export const completedToDo = (id: number) => ({
   id,
   type: COMPLETED_TO_DO,
 });
+
+export function fetchList() {
+  return async (dispatch: any) => {
+    const data = await $todo.getList();
+    dispatch(getList(data));
+    return data;
+  };
+}
+
+export function fetchAdd(value: string) {
+  return async () => {
+    await $todo.add({ data: { value } });
+    // dispatch(getList(data));
+    // return Promise.resolve();
+  };
+}

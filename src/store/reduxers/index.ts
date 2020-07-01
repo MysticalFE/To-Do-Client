@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import todos from "./todos";
-import toggle from "./toggle";
+import modal from "./toggle";
 import list from "./getList";
 import { Item } from "@/typings";
 
@@ -16,10 +16,11 @@ export interface ToDoList {
 
 export interface ToggleType {
   toggle: boolean;
+  fetchAddSuccess: boolean;
 }
 
 export default combineReducers({
   todos,
-  toggle,
+  modal,
   list,
 });

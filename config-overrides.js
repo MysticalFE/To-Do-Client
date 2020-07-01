@@ -22,7 +22,8 @@ const devServerConfig = () => (config) => {
     ...config,
     proxy: {
       "/api/todo": {
-        target: "https://jiaxiangkai.cn/api",
+        // target: "https://jiaxiangkai.cn/api",
+        target: "http://localhost:9000",
         changeOrigin: true,
         logLevel: "debug",
         secure: false,

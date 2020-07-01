@@ -12,6 +12,6 @@ export default (state = initialState, action: GetListAction) => {
         data: action.data,
       };
     default:
-      return [...state];
+      return { ...state };
   }
 };

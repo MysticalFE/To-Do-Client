@@ -62,6 +62,7 @@ function Fetch(url: string, opt: fetchParam = {}): Promise<[]> {
         requestHeaders.set("Content-Type", "multipart/form-data;");
       } else if (opt.data instanceof Object) {
         opt.body = JSON.stringify(opt.data);
+        requestHeaders.set("Content-Type", "application/json");
       } else {
         requestHeaders.set(
           "Content-Type",
@@ -85,10 +86,10 @@ function Fetch(url: string, opt: fetchParam = {}): Promise<[]> {
     let baseParams = {
       method: "get",
       mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
       credentials: "include",
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
     };
     let reqParams = Object.assign({}, baseParams, opt);
     const fetch_promise = fetch(url, reqParams)

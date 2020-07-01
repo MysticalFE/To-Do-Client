@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { ToDoList } from "@/store/reduxers";
+import { ToDoList, ToggleType } from "@/store/reduxers";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { Switch } from "antd";
 import { completedToDo, fetchList } from "@/store/actions";
 import "./list.css";
 
-function List(props: any) {
-  console.log(props);
+function List() {
   const dispatch = useDispatch();
+  const { fetchAddSuccess } = useSelector((state: any) => state.modal);
+  console.log(fetchAddSuccess);
   useEffect(() => {
-    const fetchData = () => {
-      dispatch(fetchList());
-    };
-    fetchData();
-  }, [dispatch]);
+    dispatch(fetchList());
+  }, [dispatch, fetchAddSuccess]);
   const { data } = useSelector((state: ToDoList) => state.list);
   return (
     <ul className="list-wrap">

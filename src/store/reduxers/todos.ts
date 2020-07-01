@@ -8,14 +8,11 @@ export default (state = initialState, action: addToDo) => {
   switch (type) {
     case ADD_TO_DO:
       let item = {
-        id: action.id,
         value: action.value,
         completed: false,
       };
       return [...state, item];
     case COMPLETED_TO_DO:
-      console.log(state);
-      console.log(action);
       return state.map((item) =>
         item.id === action.id ? { ...item, completed: !item.completed } : item
       );
