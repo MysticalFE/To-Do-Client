@@ -56,8 +56,9 @@ function Fetch(url: string, opt: fetchParam = {}): Promise<[]> {
   )
     return Promise.reject("method is not legal");
   if (opt.data) {
+    const qsMethod = ["POST", "PUT"];
     //post 设置headers,body
-    if ((opt.method as string).toUpperCase() === "POST") {
+    if (qsMethod.includes((opt.method as string).toUpperCase())) {
       if (opt.data instanceof FormData) {
         requestHeaders.set("Content-Type", "multipart/form-data;");
       } else if (opt.data instanceof Object) {
@@ -85,7 +86,7 @@ function Fetch(url: string, opt: fetchParam = {}): Promise<[]> {
   return new Promise((resolve, reject) => {
     let baseParams = {
       method: "get",
-      mode: "no-cors",
+      mode: "cors",
       credentials: "include",
       headers: new Headers({
         "Content-Type": "application/json",
