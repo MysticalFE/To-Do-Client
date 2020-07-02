@@ -9,9 +9,9 @@ export interface Map {
 }
 
 export interface Item {
-  id: number;
-  value: string;
-  completed: boolean;
+  id?: number;
+  value?: string;
+  completed?: boolean;
   created_time?: number;
   updated_time?: number;
   user?: string;

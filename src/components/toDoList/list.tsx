@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { ToDoList, ToggleType } from "@/store/reduxers";
+import { ToDoList } from "@/store/reduxers";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { Switch } from "antd";
-import { completedToDo, fetchList } from "@/store/actions";
+import { fetchList, fetchUpdate } from "@/store/actions";
 import "./list.css";
 
 function List() {
   const dispatch = useDispatch();
   const { fetchAddSuccess } = useSelector((state: any) => state.modal);
-  console.log(fetchAddSuccess);
+  const completed = useSelector((state: any) => state.todos);
   useEffect(() => {
     dispatch(fetchList());
-  }, [dispatch, fetchAddSuccess]);
+  }, [dispatch, fetchAddSuccess, completed]);
   const { data } = useSelector((state: ToDoList) => state.list);
   return (
     <ul className="list-wrap">
@@ -27,7 +27,7 @@ function List() {
               unCheckedChildren={<CloseOutlined />}
               defaultChecked={item.completed}
               onChange={(checked) => {
-                dispatch(completedToDo(item.id));
+                dispatch(fetchUpdate(item));
               }}
               size="small"
             />

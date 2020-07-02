@@ -19,6 +19,7 @@
 .list-wrap li:hover {
   background: var(--base-color-transpant-3);
   transition: background .5s;
+  border-radius: 5px;
 }
 
 .list-wrap li .text {

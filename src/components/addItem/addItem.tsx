@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Input } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { ToggleType } from "@/store/reduxers";
+// import { ToggleType } from "@/store/reduxers";
 import { toggle as toggleModal, fetchAdd } from "@/store/actions";
 interface ToDos {
   toggle: boolean;

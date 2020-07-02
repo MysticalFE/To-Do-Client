@@ -40,8 +40,16 @@ export function fetchList() {
 
 export function fetchAdd(value: string) {
   return async () => {
-    await $todo.add({ data: { value } });
+    await $todo.add({ value });
     // dispatch(getList(data));
     // return Promise.resolve();
+  };
+}
+
+export function fetchUpdate(param: Item) {
+  return async (dispatch: any) => {
+    await $todo.update({ id: param.id, completed: !param.completed });
+    dispatch(completedToDo(param.id as number));
+    return param.id;
   };
 }
