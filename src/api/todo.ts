@@ -1,5 +1,4 @@
 import Fetch from "./fetch";
-import { fetchParam } from "../typings";
 const url = "/api/todo";
 
 const dealParam = (params: any, method: string) => {
@@ -18,5 +17,8 @@ export const $todo = {
   },
   async delete(params: any) {
     return Fetch(`${url}`, dealParam(params, "delete"));
+  },
+  async query(params: any) {
+    return Fetch(`${url}/query`, dealParam(params, "post"));
   },
 };

@@ -1,13 +1,7 @@
 import React from "react";
 import { Row, Col } from "antd";
 
-import {
-  Header,
-  InputBox,
-  PlusCircle,
-  AddItemModel,
-  ToDoList,
-} from "@/components";
+import { Header, PlusCircle, AddItemModel, ToDoList } from "@/components";
 
 export default function Layout() {
   return (
@@ -23,7 +17,6 @@ export default function Layout() {
         }}
       >
         <Header />
-        <InputBox />
         <PlusCircle />
         <AddItemModel />
         <ToDoList />
