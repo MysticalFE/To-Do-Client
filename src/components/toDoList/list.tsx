@@ -16,11 +16,11 @@ function List() {
 
   useEffect(() => {
     dispatch(fetchList());
-  }, [dispatch, fetchAddSuccess, completed]);
+  }, [dispatch, fetchAddSuccess]);
 
   useEffect(() => {
     dispatch(fetchQuery(pressVal));
-  }, [dispatch, pressVal]);
+  }, [dispatch, pressVal, completed]);
   const { data } = useSelector((state: ToDoList) => state.list);
 
   const pressEnter = (e: KeyboardEvent) => {
