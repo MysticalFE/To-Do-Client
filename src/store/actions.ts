@@ -53,3 +53,11 @@ export function fetchUpdate(param: Item) {
     return param.id;
   };
 }
+
+export function fetchQuery(value: string) {
+  return async (dispatch: any) => {
+    const data = await $todo.query({ value });
+    dispatch(getList(data));
+    return data;
+  };
+}
