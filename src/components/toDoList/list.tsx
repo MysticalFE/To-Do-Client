@@ -22,6 +22,7 @@ function List() {
     dispatch(fetchQuery(pressVal));
   }, [dispatch, pressVal, completed]);
   const { data } = useSelector((state: ToDoList) => state.list);
+  console.log(data);
 
   const pressEnter = (e: KeyboardEvent) => {
     setPressVal(value);
@@ -47,7 +48,7 @@ function List() {
               <Switch
                 checkedChildren={<CheckOutlined />}
                 unCheckedChildren={<CloseOutlined />}
-                defaultChecked={item.completed}
+                checked={Boolean(item.completed)}
                 onChange={(checked) => {
                   dispatch(fetchUpdate(item));
                 }}
